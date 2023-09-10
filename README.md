@@ -125,6 +125,7 @@ Setelah itu, saya menamakan aplikasi saya ‘Dekappy’ dan klik Deploy App untu
 Pada checklist ini, saya membuat berkas README.md di dalam direktori utama. Dalam berkas README.md tersebut saya isi dengan link adaptable saya dan jawaban dari pertanyaan-pertanyaan yang ada pada soal. Setelah itu, saya melakukan git add, commit, dan push.
 
 2.  Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+![C:\Dinda\Kuliah\PBP\dekappy\Colorful Pastel Childish Handmade Scheme Concept Mind Map Graph.png](<Colorful Pastel Childish Handmade Scheme Concept Mind Map Graph.png>)
 
 Ketika client mengirim request ke web aplikasi berbasis Django, Django akan mencocokkan URL yang dikirim oleh client dengan pola URL yang telah didefinisikan dalam berkas ‘urls.py‘. Pola URL tersebut adalah aturan yang menghubungkan URL dengan View yang akan menanganinya. 
 Jika Django menemukan pola yang cocok, komponen view akan memproses request tersebut, mengambil data dari model, dan merender template yang sesuai. View dapat berupa fungsi atau kelas, tergantung pada bagaimana kita menulis view kita. Kita menulis view kita di dalam berkas ‘views.py’ sebagai titik hubungan antara model dan template.

@@ -162,3 +162,162 @@ Link aplikasi Adaptable → https://dekappy.adaptable.app/
    
    Berdasarkan penjelasan pada paragraf-paragraf sebelumnya, terdapat beberapa perbedaan antara MVC, MVT, dan MVVM. Perbedaan yang pertama adalah dari segi pola arsitektur dasarnya. MVC memisahkan aplikasi menjadi Model, View, dan Controller. MVT yang biasa digunakan oleh Django, membagi aplikasi menjadi Model, View, dan Template. Sedangkan MVVM memisahkan aplikasi menjadi Model, View, dan ViewModel. Perbedaan berikutnya adalah hubungan dan aliran data.  Pada MVC, komponen View dan Controller terikat erat satu sama lain. Hal tersebut berarti bahwa tampilan dan cara aplikasi berinteraksi dengan data sangat tergantung satu sama lain. View mengirim permintaan ke Controller dan controller mengelola aliran data antara model dan view. Sedangkan, MVVM lebih berfokus pada peristiwa (event-driven) karena menggunakan ikatan data (data binding). Hal ini membuat pemisahan logika bisnis inti dari View menjadi lebih mudah. MVT memiliki pola yang sedikit mirip dengan MVC, yaitu sama-sama menggunakan controller untuk mengatur aliran data antara model dan view. Akan tetapi, dalam MVT, komponen View yang bertanggung jawab dalam mengelola permintaan dari pengguna dan berinteraksi dengan controller untuk mengatur aliran data antara model dan view. 
 
+<h1> TUGAS 3 </h1>
+
+1. Apa perbedaan antara form POST dan form GET dalam Django?
+    Form POST digunakan ketika user ingin mengirim data dari form elements ke server web dengan menggunakan parameter URL. Cara tersebut lebih aman karena data tidak akan terlihat dalam URL sehingga lebih cocok untuk mengirimkan data sensitif atau ketika user perlu mengirimkan banyak informasi, seperti saat membuat, mengedit, atau menghapus entitas. Di sisi lain, form GET digunakan untuk mengambil data dari server tanpa membuat perubahan. Namun, data yang dikirimkan dengan GET dapat terlihat dalam URL sehingga menjadi kurang aman. Selain itu, GET juga dapat disimpan di dalam cache. 
+
+2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+    Extensible Markup Language atau biasa disebut dengan XML merupakan markup language dan file format yang digunakan untuk menyimpan, mengorganisasi, dan mengirim data secara struktural. Sedangkan, JSON adalah open standard file format yang menggunakan teks yang mudah dibaca oleh manusia sehingga dapat digunakan untuk berkomunikasi antara berbagai program dan aplikasi di internet. Selain itu, terdapat HTML yang digunakan untuk mendefinisikan struktur dan tampilan halaman web. 
+
+    XML, JSON, dan HTML adalah tiga format populer untuk menyimpan dan bertukar data di web. Ketiga format tersebut memiliki struktur yang berbeda dan kelebihan masing-masing.   XML digunakan untuk menyimpan dan mengorganisasi data secara struktural, cocok untuk pertukaran data antara sistem. JSON, lebih mudah dibaca oleh manusia, digunakan untuk pertukaran data antara aplikasi web. HTML digunakan untuk mendefinisikan tampilan halaman web, menggambarkan konten yang ditampilkan di peramban web. 
+
+3.  Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+    JSON sering digunakan dalam pertukaran dara karena merupakan format data yang ringkas, mudah dibaca, dan mudah digunakan. JSON mendukung struktur data yang jelas dan membuatnya fleksibel dalam merepresentasikan informasi. Selain itu, JSON memiliki kompatibilitas yang luas dengan berbagai bahasa pemrograman dan sangat cocok digunakan untuk pengembangan web. 
+
+4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+    ### Membuat input form untuk menambahkan objek model pada app sebelumnya.
+    Checklist ini saya mulai dari pembuatan skeleton yang digunakan untuk merancang tampilan situs web. Fungsi utama dari skeleton ini adalah untuk memberikan landasan atau kerangka kerja awal yang memungkinkan pengembang untuk memastikan konsistensi dalam desain situs web yang sedang dibangun.
+
+    Pertama, saya membuat folder bernama templates pada root folder dekappy, bukan folder dekappy yang dalam. Kemudian, saya membuat file bernama base.html yang berfungsi sebagai kerangka dasar dalam pengembangan web. Selanjutnya, saya akan menambahkan kode berikut sebagai value dari key ‘DIRS’ ke dalam variable TEMPLATES di file settings.py yang ada di dalam direktori aplikasi dekappy.
+
+    ``` 'DIRS': [BASE_DIR / 'templates'], ```
+
+    Kode tersebut bertujuan supaya base.html dapat terdeteksi sebagai berkas template. Kemudian, saya mengubah kode pada file main.html yang ada di dalam folder templates pada direktori main menjadi seperti berikut ini.
+
+    ```
+    {% extends 'base.html' %}
+
+    {% block content %}
+        <h1>{{ appname }}</h1>
+        <h2>Name:</h2>
+        <p><b>{{ name }}</b></p>
+        <h2>Class: </h2>
+        <p><b>{{ class }}</b></p>
+
+        <hr/>
+
+    {% endblock content %}
+    ```
+
+    Kode tambahan diatas bertujuan untuk meng-extend base.html supaya bisa menggunakan struktur dasar dari base.html. Kemudian terdapat block content yang diisi dengan konten dekappy untuk memisahkan tampilan umum dan tampilan khusus halaman-halaman berbeda dalam situs web.
+
+    Setelah melakukan langkah yang diatas, saya akan membuat input form untuk menambahkan objek model. Langkah pertama adalah membuat file dengan nama forms.py di dalam direktori main. Kemudian saya mengisi forms.py dengan kode berikut.
+
+    ```
+    from django.forms import ModelForm
+    from main.models import Item
+
+    class ItemForm(ModelForm):
+        class Meta:
+            model = Item
+            fields = ["name", "items", "price", "description"]
+    ```
+
+    Variable fields akan saya isi dengan atribut yang saya gunakan yang ada di dalam model. 
+
+    Langkah berikutnya adalah mengimpor beberapa fungsi berikut ke dalam file views.py yang ada di dalam folder main.
+
+    ```
+    from django.http import HttpResponseRedirect
+    from main.forms import ItemForm
+    from django.urls import reverse
+    ```
+
+    Line pertama bertujuan untuk mendirect request HTTP ke URL lain. Line kedua bertujuan untuk mengimport class ItemForm dari modul ‘forms’ yang berada di folder main. Kemudian, line ketiga bertujuan untuk mengimpor fungsi ‘reverse’ dari modul ‘urls; untuk menghasilkan URL berdasarkan nama URL yang telah ditentukan.
+
+    Langkah berikutnya adalah membuat fungsi baru bernama ‘create_item’ di dalam file views.py untuk menghasilkan form yang dapat menambahkan data item secara otomatis.  Fungsi tersebut akan diisi dengan kode berikut ini. 
+
+    ```
+    def create_item(request):
+    form = ItemForm(request.POST or None) // mengumpulkan data yang akan digunakan
+
+    if form.is_valid() and request.method == "POST": // memeriksa apakah form valid dan request methodnya adalah metode POST
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form} // melewati data ke template yang akan digunakan untuk merender halaman web
+    return render(request, "create_product.html", context)
+
+    ```
+
+    Setelah itu, saya menambahkan  kode berikut ke dalam fungsi ‘show_main’.
+
+    ```
+        items = Item.objects.all() // menyimpan seluruh object Item yang tersimpan di database
+    ```
+
+    Setelah itu saya menambahkan key baru ke dalam variable context bernama ‘item’ dengan valuenya adalah items yang sebelumnya sudah saya tambahkan.
+
+    ### Tambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
+    Setelah membuat fungsi create_item di checklist sebelumnya, saya membuat berkas HTML baru dengan nama create_item.html di folder templates pada direktori main. Kemudian saya menambahkan beberapa kode di dalam block content yang terdapat di main.html untuk menampilkan data produk.
+
+    Langkah berikutnya adalah mengimpor fungsi HttpResponse yang berfungsi ke dalam folder views.py untuk menghasilkan response HTTP kepada klien dan Serializer yang berfungsi untuk mengelola konversi data dalam aplikasi Django menjadi format yang dapat di-serialize, terutama saat mentransfer data dalam aplikasi.
+
+    Kemudian, saya membuat fungsi baru yang bernama show_xml dan menambah variabel baru dengan nama data dan me-return function HttpResponse seperti berikut.
+    ```
+    def show_xml(request):
+        data = Item.objects.all()
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    ```
+
+    Setelah itu, saya membuat fungsi baru yang bernama ‘show_json’ untuk mengambil data dari model. Kemudian mengirimkannya sebaga respons HTTP dalam format json. Fungsi tersebut akan saya isi dengan code berikut. 
+
+    ```
+    def show_json(request):
+        data = Item.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+
+    Langkah berikutnya adalah membuat fungsi baru dengan nama ‘show_xml_by_id’ untuk mengambil data produk spesifik berdasarkan ID yang diberikan dalam request HTTP. Fungsi ini mirip dengan fungsi show_xml sebelumnya. Namun, terdapat perubahan pada nilai variabel data yaitu sebagai berikut.
+    ```
+    data = Item.objects.filter(pk=id) // untuk mengambil produk dengan ID yang sesuai dari model ‘Item’ .
+    ```
+    Kemudian, saya membuat fungsi baru lagi dengan nama ‘show_json_by_id’ untuk mengambil data produk spesifik berdasarkan ID yang diberikan dalam request HTTP. Fungsi ini mirip dseperti fungsi show_json, tetapi ada perubahan pada variable data.
+
+    ```
+    data = Item.objects.filter(pk=id)
+    ```
+
+    ### Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
+    Pada langkah ini saya mulai dengan membuat routing URL untuk fungsi create_item. Saya mengimpor fungsi ‘create_item’ ke file urls.py yang berada di folder main dan menambahkan path url baru untuk mengakses fungsi ‘create_item’.
+
+    ```
+    path('create-item', create_item, name='create_item'),
+    ```
+
+    Langkah berikutnya adalah mengimpor fungsi show_xml ke dalam file urls.py. Setelah itu menambahkan path ke dalam variable urlpatterns seperti berikut.
+
+    path('xml/', show_xml, name='show_xml'), 
+
+    Kemudian, saya mengimpor fungsi show_json ke dalam file urls.py yang ada pada folder main. Setelah itu, saya menambah path baru ke variable urlpatterns seperti sebelumnya. 
+
+    path('json/', show_json, name='show_json'), 
+
+    Setelah itu, saya juga mengimpor fungsi show_xml_by_id dan show_json_by_id ke dalam file urls.py. Kemudian saya menambahkan path baru ke dalam variable urlpatterns.
+    ```
+    path('xml/<int:id>/', show_xml_by_id. name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+    ```
+    
+    ### Mengakses kelima URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
+    Fungsi create_item :
+    ![html1](html1.png)
+    ![html2](html2.png)
+    ![html3](html3.png)
+
+    Fungsi show_xml :
+    ![xml](xml.png)
+
+    Fungsi show_json :
+    ![json](json.png)
+
+    Fungsi show_xml_by_id dengan index 1 :
+    ![xmlid](xmlid.png)
+
+    Fungsi show_json_by_id dengan index 1:
+    ![jsonid](jsonid.png)
+
+
+    ###  Melakukan add-commit-push ke GitHub.
+    Setelah melakukan langkah-langkah diatas, saya melakukan git add dengan memasukan command ```git add . ``` kemudian saya melakukan commit dengan pesan update. Setelah itu, saya melakukan git push dengan menjalankan command ```git push -u origin main```.

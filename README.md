@@ -165,14 +165,17 @@ Link aplikasi Adaptable → https://dekappy.adaptable.app/
 <h1> TUGAS 3 </h1>
 
 1. Apa perbedaan antara form POST dan form GET dalam Django?
+   
     Form POST digunakan ketika user ingin mengirim data dari form elements ke server web dengan menggunakan parameter URL. Cara tersebut lebih aman karena data tidak akan terlihat dalam URL sehingga lebih cocok untuk mengirimkan data sensitif atau ketika user perlu mengirimkan banyak informasi, seperti saat membuat, mengedit, atau menghapus entitas. Di sisi lain, form GET digunakan untuk mengambil data dari server tanpa membuat perubahan. Namun, data yang dikirimkan dengan GET dapat terlihat dalam URL sehingga menjadi kurang aman. Selain itu, GET juga dapat disimpan di dalam cache. 
 
 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
-    Extensible Markup Language atau biasa disebut dengan XML merupakan markup language dan file format yang digunakan untuk menyimpan, mengorganisasi, dan mengirim data secara struktural. Sedangkan, JSON adalah open standard file format yang menggunakan teks yang mudah dibaca oleh manusia sehingga dapat digunakan untuk berkomunikasi antara berbagai program dan aplikasi di internet. Selain itu, terdapat HTML yang digunakan untuk mendefinisikan struktur dan tampilan halaman web. 
+
+   Extensible Markup Language atau biasa disebut dengan XML merupakan markup language dan file format yang digunakan untuk menyimpan, mengorganisasi, dan mengirim data secara struktural. Sedangkan, JSON adalah open standard file format yang menggunakan teks yang mudah dibaca oleh manusia sehingga dapat digunakan untuk berkomunikasi antara berbagai program dan aplikasi di internet. Selain itu, terdapat HTML yang digunakan untuk mendefinisikan struktur dan tampilan halaman web. 
 
     XML, JSON, dan HTML adalah tiga format populer untuk menyimpan dan bertukar data di web. Ketiga format tersebut memiliki struktur yang berbeda dan kelebihan masing-masing.   XML digunakan untuk menyimpan dan mengorganisasi data secara struktural, cocok untuk pertukaran data antara sistem. JSON, lebih mudah dibaca oleh manusia, digunakan untuk pertukaran data antara aplikasi web. HTML digunakan untuk mendefinisikan tampilan halaman web, menggambarkan konten yang ditampilkan di peramban web. 
 
-3.  Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+3. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+   
     JSON sering digunakan dalam pertukaran dara karena merupakan format data yang ringkas, mudah dibaca, dan mudah digunakan. JSON mendukung struktur data yang jelas dan membuatnya fleksibel dalam merepresentasikan informasi. Selain itu, JSON memiliki kompatibilitas yang luas dengan berbagai bahasa pemrograman dan sangat cocok digunakan untuk pengembangan web. 
 
 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
@@ -302,22 +305,24 @@ Link aplikasi Adaptable → https://dekappy.adaptable.app/
     
     ### Mengakses kelima URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
     Fungsi create_item :
-    ![html1](html1.png)
-    ![html2](html2.png)
-    ![html3](html3.png)
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/9d46763f-083c-4dfb-ad99-9c5550fa93e3)
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/0f03cc3c-ed63-4575-a446-36ea84f98ea5)
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/bf247f17-56ac-439a-b68b-36b26bea53b1)
+
 
     Fungsi show_xml :
-    ![xml](xml.png)
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/c068e2ad-21e8-43e1-90d2-21955a1683a3)
 
     Fungsi show_json :
-    ![json](json.png)
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/b09d1ebe-455b-4c00-a34b-a9aae31fc508)
+
 
     Fungsi show_xml_by_id dengan index 1 :
-    ![xmlid](xmlid.png)
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/7d10e193-b583-4135-8106-5e29036e453e)
+
 
     Fungsi show_json_by_id dengan index 1:
-    ![jsonid](jsonid.png)
-
+    ![image](https://github.com/dindakiranaa/dekappy/assets/124904747/2e9abfa8-b87d-4922-a69e-40dc42037f9d)
 
     ###  Melakukan add-commit-push ke GitHub.
     Setelah melakukan langkah-langkah diatas, saya melakukan git add dengan memasukan command ```git add . ``` kemudian saya melakukan commit dengan pesan update. Setelah itu, saya melakukan git push dengan menjalankan command ```git push -u origin main```.

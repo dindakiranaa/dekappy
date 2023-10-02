@@ -496,30 +496,30 @@ Setelah itu, saya menampilkan informasinya dengan menambahkannya ke dalam file `
 
 2. Jelaskan HTML5 Tag yang kamu ketahui.
 
-    <p>
-    Tag tersebut merupakan tag yang mendefinisikan sebuah paragraph
-    <html>
-    Tag tersebut mendefinisikan root dari sebuah dokumen HTML
-    <hr>
-    Tag tersebut membuat sebuah garis horizontal
-    <div>
-    Tag tersebut digunakan untuk mengelompokkan elemen-elemen HTML menjadi sebuah blok atau kontainer
-    <h1> - <h6>
-    Tag tersebut digunakan untuk mengatur tingkat header.
+    --> Tag "p" merupakan tag yang mendefinisikan sebuah paragraph
+   
+    --> Tag "html" mendefinisikan root dari sebuah dokumen HTML
+   
+    --> Tag "hr" membuat sebuah garis horizontal
+   
+    --> Tag "div" digunakan untuk mengelompokkan elemen-elemen HTML menjadi sebuah blok atau kontainer
+   
+    --> Tag heading (h1- h6) digunakan untuk mengatur tingkat header.
+   
 
-3. Jelaskan perbedaan antara margin dan padding.
+4. Jelaskan perbedaan antara margin dan padding.
 
     Margin dan padding merupakan konsep yang digunakan untuk mengatur ruang di sekitar elemen HTML. Margin adalah ruang di luar elemen. Hal tersebut berarti jarak antara elemen dan elemen-elemen di sekitarnya. Margin berfungsi untuk mengatur jarak antara elemen saat ini dengan elemen-elemen di luarnya. Sedangkan, padding merupakan ruang di dalam elemen. Padding adalah jarak antara batas elemen dan kontennya sendiri. Padding mengatur jarak antara konten elemen dan batas elemen itu sendiri. 
 
     Berdasarkan penjelasan tersebut, padding dan margin memiliki kesamaan yaitu sama-sama digunakan untuk mengatur jarak. Akan tetapi, terdapat perbedaan yang signifikan diantara kedua konsep tersebut. Margin tidak bisa diisi dengan warna atau gambar latar belakang. Hal tersebut dikarenakan margin adalah area transparan yang hanya mengatur jarak antara elemen-elemen. Sedangkan, padding dapat diberikan warna atau gambar latar belakang yang akan terlihat di antara konten elemen dan batasnya. Padding mempengaruhi jarak antara konten di dalam elemen dan batas elemen tersebut.
 
-4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+5. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
 
    Bootstrap merupakan framework yang menawarkan desain yang lebih terstruktur dengan komponen UI yang siap pakai dan perilaku yang sudah ditentukan sebelumnya. Bootstrap cocok digunakan ketika kita mengembangkan suatu proyek dengan waktu yang terbatas karena bootstrap memiliki banyak komponen UI yang telah dibuat sebelumnya sehingga tidak perlu merancang semuanya dari awal. 
 
     Sedangkan, Tailwind merupakan framework yang menggunakan pendekatan utility-first, yang memungkinkan pengembang untuk membangun tampilan dengan menggabungkan kelas utilitas yang ada. Hal tersebut memberikan fleksibilitas yang tinggi dalam merancang tampilan yang sesuai dengan kebutuhan kita. Oleh karena itu, framework ini cocok untuk proyek dengan kustomisasi tinggi dan kebutuhan yang lebih kecil.  
 
-5.  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+6.  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
     ### Kustomisasi halaman login, register, dan tambah inventori semenarik mungkin.
     Pada checklist ini, saya mulai dari melakukan kustomisasi login dengan menggunakan CSS. Saya menambahkan beberapa selector yang digunakan untuk mengubah tampilan dan tata letak elemen dan memberikan “style”  pada elemen tertentu. Berikut adalah selector yang saya tambahkan ke dalam tag style:

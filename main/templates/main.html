@@ -1,50 +1,138 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ appname }}</h1>
-    <h2>Name:</h2>
-    <p><b>{{ name }}</b></p>
-    <h2>Class: </h2>
-    <p><b>{{ class }}</b></p>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+<style>
+    /* Terapkan font "Audiowide" pada nama app */
+    .appname {
+        font-family: "Audiowide", sans-serif;
+        font-size: 80px;
+    }
 
-    <hr/>
+    /* CSS untuk tabel */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 20px;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
 
-    <table>
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Tombol Edit dan Delete */
+    .edit-button, .delete-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit-button:hover {
+        background-color: #45a049;
+    }
+
+    .delete-button:hover {
+        background-color: #f44336;
+    }
+
+    /* CSS untuk tombol "Add New Item" */
+    .add-new-button {
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .add-new-button:hover {
+        background-color: #005f79;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(10, 6, 37);">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">HOME</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">
+                    Name: <b>{{ name }}</b>
+                </a>
+                <a class="nav-link" href="{% url 'main:logout' %}">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+<h1 class="appname">{{ appname }}</h1>
+<h2>Name: {{ name }}</h2>
+<h2>Class: {{ class }}</h2>
+
+<hr/>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Amounts</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+    {% for item in item %}
         <tr>
-            <th>Name</th>
-            <th>Items</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date Added</th>
+            <td>{{item.name}}</td>
+            <td>{{item.items}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.description}}</td>
+            <td>
+                <a href="{% url 'main:edit_item' item.pk %}">
+                    <button class="edit-button">
+                        Edit
+                    </button>
+                </a>
+                <a href="{% url 'main:delete_item' item.pk %}">
+                    <button class="delete-button">
+                        Delete
+                    </button>
+                </a>
+            </td>
         </tr>
-    
-        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-    
-        {% for item in item %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.items}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.date_added}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    
-    <br />
-    
-    <a href="{% url 'main:create_item' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
+    {% endfor %}
+</table>
 
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
+<br />
 
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
+<a href="{% url 'main:create_item' %}" class="add-new-button">
+    Add New Item
+</a>
+
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 
 {% endblock content %}

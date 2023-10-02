@@ -484,8 +484,11 @@ Setelah itu, saya menampilkan informasinya dengan menambahkannya ke dalam file `
 
 
 
+<hr>
 
 <h1>TUGAS 5</h1>
+
+<hr>
 
 1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
 
@@ -566,80 +569,82 @@ Setelah itu, saya menampilkan informasinya dengan menambahkannya ke dalam file `
 
     ```
     Untuk menerapkan selector yang sudah didefinisikan sebelumnya, saya memasukkannya ke dalam class yang sesuai dengan elemennya seperti berikut.
-    ```<div class="appname">DEKAPPY</div>
+    ```
+    <div class="appname">DEKAPPY</div>
     <div class="login">
-    <td><input class="btn login_btn" type="submit" value="Login"></td>```
+    <td><input class="btn login_btn" type="submit" value="Login"></td>
+    ```
 
     Setelah itu, saya melakukan hal yang serupa untuk halaman register di file register.html dan halaman tambah inventori di create_item.html. Saya mendefinisikan beberapa selector dan menambahkannya ke dalam class.
 
-### Kustomisasi halaman daftar inventori
-Pada halaman inventori, saya mendefinisikan sejumlah selector,yaitu : 
-```   /* Terapkan font "Audiowide" pada nama app */
-    .appname {
-        font-family: "Audiowide", sans-serif;
-        font-size: 80px;
-    }
-
-    /* CSS untuk tabel */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 5px;
-        overflow: hidden;
-        margin-top: 20px;
-        background-color: white;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    th, td {
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    /* Tombol Edit dan Delete */
-    .edit-button, .delete-button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .edit-button:hover {
-        background-color: #45a049;
-    }
-
-    .delete-button:hover {
-        background-color: #f44336;
-    }
-
-    /* CSS untuk tombol "Add New Item" */
-    .add-new-button {
-        background-color: #008CBA;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .add-new-button:hover {
-        background-color: #005f79;
-
-```
-Kemudian, saya menerapkan selector-selector tersebut dengan memasukkannya ke dalam class.
-
-
+    ### Kustomisasi halaman daftar inventori
+    Pada halaman inventori, saya mendefinisikan sejumlah selector,yaitu : 
+    ```   /* Terapkan font "Audiowide" pada nama app */
+        .appname {
+            font-family: "Audiowide", sans-serif;
+            font-size: 80px;
+        }
+    
+        /* CSS untuk tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+            background-color: #f2f2f2;
+        }
+    
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    
+        /* Tombol Edit dan Delete */
+        .edit-button, .delete-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+    
+        .delete-button:hover {
+            background-color: #f44336;
+        }
+    
+        /* CSS untuk tombol "Add New Item" */
+        .add-new-button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+    
+        .add-new-button:hover {
+            background-color: #005f79;
+    
+    ```
+    Kemudian, saya menerapkan selector-selector tersebut dengan memasukkannya ke dalam class.
+    
+    

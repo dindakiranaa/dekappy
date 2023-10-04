@@ -22,7 +22,7 @@
 
     .additem {
         background-color: rgb(11, 5, 37);
-        padding: 40px;
+        padding: 30px;
         border-radius: 10px;
         text-align: center;
         max-width: 800px;
@@ -33,6 +33,13 @@
     .additem label {
         color: white;
     }
+    
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .add_btn {
         background-color: #ffffff;
         color: rgb(8, 5, 29);
@@ -40,27 +47,53 @@
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
+        margin-top: 20px;
     }
 
     .add_btn:hover {
         background-color: #0056b3;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid white;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        color: white;
     }
 </style>
 
 <div class="pagename">Add New Product</div>
 
 <div class="additem">
-    <form method="POST">
+    <form method="POST" class="form-container">
         {% csrf_token %}
         <table>
-            {{ form.as_table }}
             <tr>
-                <td></td>
-                <td>
-                    <input class="btn add_btn" type="submit" value="Add Item"/>
-                </td>
+                <th>Name</th>
+                <td>{{ form.name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ form.price }}</td>
+            </tr>
+            <tr>
+                <th>Amounts</th>
+                <td>{{ form.items }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ form.description }}</td>
             </tr>
         </table>
+        <input class="btn add_btn" type="submit" value="Add Item"/>
     </form>
 </div>
 

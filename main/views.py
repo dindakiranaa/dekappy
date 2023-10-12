@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from main.forms import ItemForm
 from django.urls import reverse
 from main.models import Item
@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required(login_url='/login')
@@ -108,8 +109,29 @@ def edit_item(request, id):
 
 def delete_item(request, id):
     # Get data berdasarkan ID
-    product = Item.objects.get(pk = id)
+    item = Item.objects.get(pk = id)
     # Hapus data
-    product.delete()
+    item.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
+
+def get_item_json(request):
+    product_item = Item.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+
+
+@csrf_exempt
+def create_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        items = request.POST.get("items")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Item(name=name, price=price, description=description, items=items, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()

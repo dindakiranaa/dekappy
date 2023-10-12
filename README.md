@@ -648,3 +648,76 @@ Setelah itu, saya menampilkan informasinya dengan menambahkannya ke dalam file `
     Kemudian, saya menerapkan selector-selector tersebut dengan memasukkannya ke dalam class.
     
     
+<hr>
+
+<h1>TUGAS 6</h1>
+
+<hr>
+
+1. Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+
+    Dalam synchronous programming, tugas-tugas dieksekusi secara berurutan, satu demi satu. Eksekusi tugas berikutnya akan menunggu hingga tugas sebelumnya selesai. Jika ada tugas yang membutuhkan waktu lama, hal tersebut dapat menghentikan eksekusi program secara keseluruhan hingga tugas tersebut selesai. Sedangkan, dalam asynchronous programming, tugas-tugas dapat dieksekusi secara konkuren (non-berurutan). Ini memungkinkan tugas-tugas yang memerlukan waktu lama untuk berjalan di latar belakang tanpa menghalangi eksekusi tugas lainnya. Ini meningkatkan responsifitas aplikasi karena tidak perlu menunggu tugas yang lambat.
+
+2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+
+    Paradigma event-driven programming adalah cara membangun aplikasi di mana program merespons peristiwa (event) yang terjadi, seperti klik tombol, input pengguna, atau respons dari server. Contohnya adalah dalam kode AJAX, kita menggunakan event seperti "onclick" dan "onsubmit" untuk merespons tindakan pengguna seperti mengklik tombol atau mengirim formulir. Ketika peristiwa tersebut terjadi, kode kita akan menanggapi peristiwa tersebut dan melakukan sesuatu, seperti mengirim permintaan AJAX ke server.
+
+3. Jelaskan penerapan asynchronous programming pada AJAX.
+
+    Penerapan asynchronous programming pada AJAX adalah ketika permintaan HTTP dikirim ke server dan eksekusi kode JavaScript tidak perlu menunggu respons dari server. Sebaliknya, ketika respons dari server siap, event handler akan dipanggil untuk menangani respons tersebut. Ini memungkinkan aplikasi untuk tetap responsif dan tidak terblokir selama operasi jaringan yang membutuhkan waktu berlangsung.
+
+4. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+
+    Fetch API adalah API bawaan yang disediakan oleh JavaScript untuk melakukan permintaan HTTP asinkron. Ia memberikan kontrol yang lebih besar terhadap permintaan dan respons HTTP. Sedangkan,  jQuery adalah pustaka JavaScript yang lebih tua dan kuat. Ini memiliki fungsi bawaan yang membuat AJAX lebih mudah digunakan. Namun, jQuery adalah pustaka tambahan yang perlu diunduh dan dimuat. Penggunaannya semakin menurun dengan adopsi Fetch API dan JavaScript modern.
+
+     Fetch API lebih disarankan karena standar baru dan lebih terintegrasi dengan JavaScript modern. Selain itu, Fetch API memiliki ukuran file yang lebih kecil daripada library jQuery, yang dapat mengoptimalkan kinerja aplikasi web. 
+
+5. Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
+
+### Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
+
+### AJAX GET
+Pada views.py saya membuat fungsi bernama 'get_item_json' yang berguna untuk mengambil semua item dengan model "Item" dan mengonversinya menjadi JSON. Setelah itu, saya membuat path baru di dalam urlpatterns. Kemudian, pada main.html, saya membuat fungsi asinkron yang bernama 'getItems()' yang digunakan untuk melakukan permintaan AJAX GET. 
+
+```
+async function getItems() {
+    return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+}
+```
+
+Pada kode tersebut, saya menggunakan 'fetch' untuk mengirim permintaan GET ke URL 'get_item_json' yang akan mengembalikan data item dalam format JSON. 
+
+### AJAX POST
+
+Pada main.html, saya membuat tombol yang membuka modal dengan form untuk menambahkan item seperti berikut.
+
+```<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>```
+
+Setelah menambahkan kode tersebut, ketika tombol ditekan, atribut data Bootstrap akan mengaktifkan tampilan modal dan menampilkan modal dengan form untuk menambahkan item. Jika penambahan item berhasil, maka kita akan menutup modal dan membersihkan formulir yang akan diimplementasikan di fungsi 'addItem'. Item akan disimpan ke basis data melalui fungsi baru yang bernama 'create_ajax'
+
+Pada views.py, saya membuat fungsi baru dengan nama 'create_ajax' untuk menyimpan item yang baru ditambahkan ke dalam basis data.
+
+```
+def create_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        items = request.POST.get("items")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Item(name=name, price=price, description=description, items=items, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+```
+Isi dari fungsi 'create_ajax' tersebut mengizinkan pengguna untu membuat produk baru melalui permintaan AJAX POST dan disimpan di dalam basis data. Kemudian, saya menambahkan path url 'create-ajax' ke dalam urlpatterns.
+
+
+### Melakukan perintah collectstatic.
+Pada checklist ini, saya melakukan perintah collectstatic dengan menjalankan perintah
+```python manage.py collectstatic``` pada Command Prompt.
+

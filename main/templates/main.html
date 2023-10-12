@@ -68,6 +68,19 @@
     .add-new-button:hover {
         background-color: #005f79;
     }
+
+    /* Gaya untuk cards */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Jarak antara cards */
+    }
+
+    .card-item {
+        width: calc(33.33% - 20px); /* 33.33% untuk tampilan tiga kolom di satu baris */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+    }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(10, 6, 37);">
@@ -89,50 +102,116 @@
     </div>
 </nav>
 <h1 class="appname">{{ appname }}</h1>
-<h2>Name: {{ name }}</h2>
 <h2>Class: {{ class }}</h2>
 
 <hr/>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Amounts</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Action</th>
-    </tr>
-
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
-    {% for item in item %}
-        <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.items}}</td>
-            <td>{{item.price}}</td>
-            <td>{{item.description}}</td>
-            <td>
-                <a href="{% url 'main:edit_item' item.pk %}">
-                    <button class="edit-button">
-                        Edit
-                    </button>
-                </a>
-                <a href="{% url 'main:delete_item' item.pk %}">
-                    <button class="delete-button">
-                        Delete
-                    </button>
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-</table>
+<div id="item-container" class="row"></div>
 
 <br />
 
-<a href="{% url 'main:create_item' %}" class="add-new-button">
-    Add New Item
-</a>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
 
 <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="price" name="price"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="items" class="col-form-label">Amounts:</label>
+                        <input type="number" class="form-control" id="items" name="items"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+    }
+
+    async function refreshItems() {
+    const cardContainer = document.getElementById("item-container");
+    cardContainer.innerHTML = "";
+
+    const products = await getItems();
+
+    products.forEach((item) => {
+        cardContainer.innerHTML += `
+            <div class="card-item">
+                <div class="card mx-auto p-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">${item.fields.name}</h4>
+                        <p class="card-text">Price: ${item.fields.price}</p>
+                        <p class="card-text">Amount: ${item.fields.items}</p>
+                        <p class="card-text">${item.fields.description}</p>
+                        <a style="justify-content: baseline;" href='edit-item/${item.pk}' class="btn btn-outline-warning" onclick="editItem(${item.pk})">Edit</a>
+                        <button style="justify-content: baseline;" class="btn btn-outline-danger" onclick="deleteItem(${item.pk})">Delete</button>
+                    </div>
+                </div>
+            </div>`;
+    });
+    }
+
+    function addProduct() {
+        fetch("{% url 'main:create_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems);
+
+        document.getElementById("form").reset();
+        return false;
+    }
+    document.getElementById("button_add").onclick = addProduct;
+
+    function editItem(productId) {
+        fetch(`{% url 'main:edit_item' 0 %}`.replace("0", productId), {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(() => {
+            refreshItems();
+            document.getElementById("form").reset();
+        });
+        return false;
+    }
+
+    function deleteItem(productId) {
+        fetch(`{% url 'main:delete_item' 0 %}`.replace("0", productId), {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(() => {
+            refreshItems();
+            document.getElementById("form").reset();
+        });
+        return false;
+    }
+
+    refreshItems();
+</script>
 
 {% endblock content %}
